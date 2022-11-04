@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,  useRef } from "react";
 
 export default function Clicker({ increment, keyName, textColor }) {
 
     // This is native JS destructuring while useState and setCount is React
     const [ count, setCount ] = useState(parseInt(localStorage.getItem(keyName) ?? 0))
     
+    const buttonRef = useRef()
+    console.log(buttonRef);
+
+
     // Retrieve variable from local storage
     useEffect(()=> {
-        
-
+        buttonRef.current.style.backgroundColor = "red"
+        buttonRef.current.style.color = "salmon"
 
         return () => {
             localStorage.removeItem(keyName)
@@ -30,6 +34,6 @@ export default function Clicker({ increment, keyName, textColor }) {
     
     return <div>
         <div style={ { color: textColor } }>Clicks Count: { count }</div>
-        <button onClick={buttonClick}>Click Me</button>
+        <button ref={ buttonRef } onClick={buttonClick}>Click Me</button>
     </div>
 }

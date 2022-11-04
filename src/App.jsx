@@ -1,8 +1,10 @@
-import { Children, useState } from "react";
+import { Children, useState, useMemo, useRef } from "react";
 import Clicker from "./Clicker.jsx";
 
 
-export default function App({children}) {
+
+
+export default function App({clickersCount, children}) {
     const [ hasClicker, setHasClicker ] = useState(true)
     const [ count, setCount ] = useState(0)
     
@@ -15,7 +17,21 @@ export default function App({children}) {
     const increment = () => {
         setCount(count +1 )
     }
+// 
+    // const colors = []
 
+    // for(let i=0; i < clickersCount; i++) {
+    //     colors.push(`hsl(${Math.random() * 360}deg, 100%, 70%)`)
+    // }
+// 
+    const colors =  useMemo(() => {
+        const colors = []
+
+        for(let i=0; i < clickersCount; i++) 
+            colors.push(`hsl(${Math.random() * 360}deg, 100%, 70%)`)
+            return colors
+        
+    }, [clickersCount])
     
     return <>
     {children}
@@ -23,9 +39,14 @@ export default function App({children}) {
     <button onClick={toggleClickerClick}>{ hasClicker ? "Hide" : "Show" }
     Clicker</button>
     {hasClicker && <> 
-        <Clicker increment={increment} keyName="countA" textColor={`hsl(${Math.random() * 360}deg, 100%, 70%)`}/>
-        <Clicker increment={increment} keyName="countB" textColor={`hsl(${Math.random() * 360}deg, 100%, 70%)`}/>
-        <Clicker increment={increment} keyName="countC" textColor={`hsl(${Math.random() * 360}deg, 100%, 70%)`}/>
+        { [...Array(clickersCount)].map((value, index) => 
+             <Clicker 
+             key={ index }
+             increment={increment} 
+             keyName={`count${index}`} 
+             textColor={colors[index]}
+             />
+        )}
     </>}
     </>
     
