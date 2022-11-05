@@ -1,5 +1,6 @@
-import { Children, useState, useMemo, useRef } from "react";
+import { Children, useState, useMemo } from "react";
 import Clicker from "./Clicker.jsx";
+import People from "./People.jsx"
 
 
 
@@ -48,6 +49,8 @@ export default function App({clickersCount, children}) {
              />
         )}
     </>}
+
+        <People></People>
     </>
     
 }

@@ -11,7 +11,7 @@ export default function Clicker({ increment, keyName, textColor }) {
 
     // Retrieve variable from local storage
     useEffect(()=> {
-        buttonRef.current.style.backgroundColor = "red"
+        buttonRef.current.style.backgroundColor = "blue"
         buttonRef.current.style.color = "salmon"
 
         return () => {
